@@ -1,0 +1,233 @@
+{
+	"info": {
+		"_postman_id": "34d494ce-8f94-431f-92a2-d20d607e772a",
+		"name": "heroku deploy api correct",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18499244"
+	},
+	"item": [
+		{
+			"name": "login Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData=pm.response.json()\r",
+							"pm.environment.set(\"accessToken\", jsonData.token);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \"email\":\"moni@gmail.com\",\r\n     \"password\":\"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{PROD_URL}}/auth/login",
+					"host": [
+						"{{PROD_URL}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all jobs Copy",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PROD_URL}}/Jobs",
+					"host": [
+						"{{PROD_URL}}"
+					],
+					"path": [
+						"Jobs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create job  request Copy",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"company\":\"facebook2\",\r\n    \"position\":\"back-end-development\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{PROD_URL}}/Jobs",
+					"host": [
+						"{{PROD_URL}}"
+					],
+					"path": [
+						"Jobs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "git single job Copy",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PROD_URL}}/Jobs/62de51997344ae15a822ed15",
+					"host": [
+						"{{PROD_URL}}"
+					],
+					"path": [
+						"Jobs",
+						"62de51997344ae15a822ed15"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update job Copy",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"company\":\"netflix22\",\r\n    \"position\":\"back-end-development\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{PROD_URL}}/Jobs/62de51a27344ae15a822ed16",
+					"host": [
+						"{{PROD_URL}}"
+					],
+					"path": [
+						"Jobs",
+						"62de51a27344ae15a822ed16"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete jobs Copy",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{PROD_URL}}/Jobs/62de51997344ae15a822ed15",
+					"host": [
+						"{{PROD_URL}}"
+					],
+					"path": [
+						"Jobs",
+						"62de51997344ae15a822ed15"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register user Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"peter2\",\r\n    \"email\":\"peter2@gmail.com\",\r\n    \"password\":\"123456\"\r\n   \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{PROD_URL}}/auth/register",
+					"host": [
+						"{{PROD_URL}}"
+					],
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

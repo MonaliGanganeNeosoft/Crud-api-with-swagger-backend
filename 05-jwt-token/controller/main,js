@@ -1,0 +1,54 @@
+//check username,password in post(login) request
+//if exist create new JWT
+//send back to fron-end
+//setup authentication so only the request with JWT can access the dashboard
+const jwt = require("jsonwebtoken");
+// const CustomAPIError = require("../errors/custom-error");
+const BadRequestError = require("../errors");
+
+const login = async (req, res) => {
+  const { username, password } = req.body;
+  //mongo,joi,check in the controller
+  if (!username || !password) {
+    // throw new CustomAPIError("Pls prvide email and passsword", 400);
+    throw new BadRequestError("Pls prvide email and passsword");
+  }
+  const id = new Date().getDate();
+  const token = jwt.sign({ id, username }, process.env.JWT_SECRET, {
+    expiresIn: "30d",
+  });
+  res.status(200).json({ msg: "user created", token });
+  // res.send("Fake login/Register/Signup Route");
+};
+const dashboard = async (req, res) => {
+  console.log(req.user);
+  const luckyNumber = Math.floor(Math.random() * 100);
+  res.status(200).json({
+    msg: `Hello , ${req.user.username}`,
+    secret: `Here is your authorized data,you lucky number is ${luckyNumber}`,
+  });
+  // console.log(req.headers);
+  // const authHeader = req.headers.authorization;
+  // if (!authHeader || !authHeader.startsWith("Bearer ")) {
+  //   throw new CustomAPIError("No token provided", 401);
+  // }
+  // const token = authHeader.split(" ")[1];
+  // console.log(token);
+  // try {
+  //   const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  //   console.log(decoded);
+  //   const luckyNumber = Math.floor(Math.random() * 100);
+  //   res.status(200).json({
+  //     msg: `Hello , ${decoded.username}`,
+  //     secret: `Here is your authorized data,you lucky number is ${luckyNumber}`,
+  //   });
+  // } catch (error) {
+  //   throw new CustomAPIError("Not Authorized to access this route", 401);
+  // }
+  // const luckyNumber = Math.floor(Math.random() * 100);
+  // res.status(200).json({
+  //   msg: `Hello , john doe`,
+  //   secret: `Here is your authorized data,you lucky number is ${luckyNumber}`,
+  // });
+};
+module.exports = { login, dashboard };

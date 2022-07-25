@@ -1,0 +1,1 @@
+https://github.com/john-smilga/react-jobs-app/blob/main/src/components/JobColumns.js
